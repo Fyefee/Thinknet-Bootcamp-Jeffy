@@ -1,7 +1,28 @@
-import '../styles/globals.css'
+import { Provider } from "react-redux";
+import { createWrapper } from "next-redux-wrapper";
+import { PersistGate } from "redux-persist/integration/react";
+
+import store from "../redux/store/store";
+import { persistor } from "../redux/store/store";
+
+import RouteGuard from "../route/RouteGuard";
+
+import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouteGuard>
+          <Component {...pageProps} />
+        </RouteGuard>
+      </PersistGate>
+    </Provider>
+  );
 }
 
-export default MyApp
+const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
+
+export default wrapper.withRedux(MyApp);
