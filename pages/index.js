@@ -38,13 +38,16 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <Layout className="layout">
+    <Layout className="layout-background">
 
       <Header userName={userName} />
       
       <Content className="container justify-content-center align-items-center d-flex pt-5">
 
-        <NameForm submitForm={(name) => addUserName(name)} />
+        <NameForm
+          submitForm={(name) => addUserName(name)}
+          buttonText={'เริ่มทำข้อสอบ'}
+        />
 
       </Content>
 

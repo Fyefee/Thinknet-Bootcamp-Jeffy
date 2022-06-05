@@ -12,18 +12,27 @@ import {
 import storage from "./storage";
 import { composeWithDevTools } from "redux-devtools-extension";
 import userReducer from "../reducers/userReducer";
+import questionReducer from "../reducers/questionReducer"
 
-const persistConfig = {
+const userPersistConfig = {
   key: "user",
   version: 1,
   storage,
 };
 
-const userPersistedReducer = persistReducer(persistConfig, userReducer);
+const questionPersistConfig = {
+  key: "question",
+  version: 1,
+  storage,
+};
+
+const userPersistedReducer = persistReducer(userPersistConfig, userReducer);
+const questionPersistedReducer = persistReducer(questionPersistConfig, questionReducer);
 
 const store = configureStore({ 
   reducer: { 
-    user: userPersistedReducer
+    user: userPersistedReducer,
+    question: questionPersistedReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false,

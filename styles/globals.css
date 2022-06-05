@@ -19,3 +19,15 @@ a {
 p {
   margin-bottom: 0 !important;
 }
+
+.layout-background {
+  @apply layout;
+  background-color: #fff !important;
+}
+
+.errorText {
+  color: red;
+  padding-left: 0.25rem;
+  padding-top: 0.25rem;
+  font-size: 0.8rem;
+}

@@ -8,6 +8,7 @@ import { persistor } from "../redux/store/store";
 import RouteGuard from "../route/RouteGuard";
 
 import "../styles/globals.css";
+import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function MyApp({ Component, pageProps }) {

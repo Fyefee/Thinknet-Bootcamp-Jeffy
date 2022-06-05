@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Layout, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,33 +6,11 @@ import { useRouter } from 'next/router'
 
 import QuestionData from '../../shared/json/question.json'
 
-import styles from "../../styles/Home.module.css";
 import Header from "../../components/Header";
+import QuestionForm from '../../components/QuestionForm'
+import ChangeNameModal from '../../components/ChangeNameModal'
 
 const { Content } = Layout;
-import { useForm, Controller } from "react-hook-form";
-
-const StyledInput = styled(Input)`
-  width: 20rem;
-  height: 3rem;
-  padding: 0.2rem 0.5rem;
-`;
-
-const StyledButton = styled(Button)`
-  width: 20rem;
-  height: 2.5rem;
-  margin-top: 1rem;
-  background-color: salmon;
-  border-color: orangered;
-
-  &:hover {
-    background-color: salmon;
-  }
-
-  &:focus {
-    background-color: salmon;
-  }
-`;
 
 export default function Question(props) {
   const dispatch = useDispatch();
@@ -40,28 +18,53 @@ export default function Question(props) {
 
   const router = useRouter();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-    control,
-  } = useForm();
-  const onSubmit = (data) => {
-    addUserName(data.userName);
-  };
+  const { question, questionCount, questionLangth, pageIndex } = props;
 
-  useEffect(() => {
-    // console.log(props.question);
-  }, []);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
+  const nextButtonHandler = useCallback((data) => {
+    dispatch({ type: "ADDRESULT", questionId: question.id, answerId: data.answerId });
+    if (pageIndex === (questionLangth - 1)) {
+      console.log('result')
+    } else {
+      router.push(`/question/${pageIndex + 1}`)
+    }
+  })
+
+  const backButtonHandler = useCallback((data) => {
+    dispatch({ type: "ADDRESULT", questionId: question.id, answerId: data.answerId });
+    if (pageIndex === 0) {
+      router.push('/')
+    } else {
+      router.push(`/question/${pageIndex - 1}`)
+    }
+  })
+
+  const editUserName = useCallback((name) => {
+    // Set Username to Redux persist
+    dispatch({ type: "ADDUSER", userName: name });
+    closeModal()
+  }, [dispatch]);
 
   return (
-    <Layout className="layout">
+    <Layout className="layout-background">
       <Header userName={userName} />
-
       <Content className="container justify-content-center align-items-center d-flex pt-5">
-        <form></form>
+        <QuestionForm
+          question={question}
+          questionCount={questionCount}
+          goNext={(data) => nextButtonHandler(data)}
+          goBack={(data) => backButtonHandler(data)}
+          openModal={() => openModal()}
+        />
       </Content>
+      <ChangeNameModal
+        isModalOpen={isModalOpen}
+        closeModal={() => closeModal()}
+        submitForm={(name) => editUserName(name)}
+      />
     </Layout>
   );
 }
@@ -89,6 +92,9 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       question,
+      questionCount: parseInt(params.index) + 1,
+      questionLangth: QuestionData.length,
+      pageIndex: parseInt(params.index),
     },
   };
 }

@@ -2,14 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Input, Button } from "antd";
 
-import styles from "../styles/Home.module.css";
-
 import { useForm, Controller } from "react-hook-form";
 
 const StyledInput = styled(Input)`
   width: 20rem;
   height: 3rem;
   padding: 0.2rem 0.5rem;
+
+  @media (max-width: 575.98px) {
+    width: 100%;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -26,12 +28,23 @@ const StyledButton = styled(Button)`
   &:focus {
     background-color: salmon;
   }
+
+  @media (max-width: 575.98px) {
+    width: 100%;
+  }
+`;
+
+const StyledForm = styled('form')`
+  @media (max-width: 575.98px) {
+    width: 100%;
+    padding: 0 5vw;
+  }
 `;
 
 export default function NameForm(props) {
   const [userName, setUserName] = useState('')
 
-  const { submitForm } = props
+  const { submitForm, buttonText } = props
 
   const {
     formState: { errors },
@@ -43,7 +56,7 @@ export default function NameForm(props) {
   };
 
   return (
-    <form>
+    <StyledForm>
       <div className="vstack">
         <Controller
           name="userName"
@@ -55,20 +68,20 @@ export default function NameForm(props) {
           render={({ field: { onChange, value } }) => (
             <StyledInput
               size="large"
-              placeholder="Name"
+              placeholder="ชื่อของคุณ"
               onChange={onChange}
               value={value}
             />
           )}
         />
-        <p className={styles.errorText}>
+        <p className="errorText">
           {errors.userName?.type === "required" && "โปรดระบุชื่อ"}
         </p>
       </div>
 
       <StyledButton onClick={handleSubmit(onSubmit)} className="btn btn-danger">
-        เริ่มทำข้อสอบ
+        {buttonText}
       </StyledButton>
-    </form>
+    </StyledForm>
   );
 }

@@ -8,6 +8,8 @@ const StyledHeader = styled(Header)`
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  color: #fff;
 `
 
 export default function AppHeader(props) {
