@@ -27,37 +27,44 @@ export default function ResultPage(props) {
   const [testScore, setTestScore] = useState(0);
   const [isError, setIsError] = useState(false);
 
+  // Check answer score and error in test result
   const checkAnswer = () => {
     let isDoAllQuestion = true;
     let score = 0;
 
+    // Turn object to map object
     const resultMap = new Map(Object.entries(testResult));
 
     for (let i = 0; i < questions.length; i++) {
       const answerId = resultMap.get(questions[i].id);
 
+      // Check if not have question id in map object
       if (!answerId) {
         isDoAllQuestion = false;
       }
 
+      // Check answer result and increase score
       if (answerId === questions[i].answerId) {
         score += 1;
       }
     }
     setTestScore(score);
 
+    // Check if have error in test result return error state
     if (!isDoAllQuestion) {
       setIsError(true);
     }
   };
 
   useEffect(() => {
+    // Check if not in Finish Test State it'll redirect to home page
     if (!isFinished) {
       router.push("/");
     }
     checkAnswer();
   }, []);
 
+  // Render Test Result
   const renderTestResult = () => {
     if (isError) {
       return (

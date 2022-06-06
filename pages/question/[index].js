@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
 import { Layout, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from 'next/router'
@@ -30,6 +29,7 @@ export default function Question(props) {
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
 
+  // Check if not set Username and Check is in Finish state
   useEffect(() => {
     if (!checkUserName(userName)) {
       router.push("/");
@@ -39,6 +39,7 @@ export default function Question(props) {
     }
   }, [question]);
 
+  // Next Question Button Handler (Save answer and if in last question redirect to Result Page)
   const nextButtonHandler = useCallback((data) => {
     saveResult(data)
     if (pageIndex === (questionLangth)) {
@@ -49,6 +50,7 @@ export default function Question(props) {
     }
   })
 
+  // Back Question Button Handler (check if in first question)
   const backButtonHandler = useCallback(() => {
     if (pageIndex === 1) {
       router.push('/')
@@ -57,12 +59,14 @@ export default function Question(props) {
     }
   })
 
+  // Edit Username
   const editUserName = useCallback((name) => {
     // Set Username to Redux persist
     dispatch({ type: "ADDUSER", userName: name });
     closeModal()
   }, [dispatch]);
 
+  // Add or Edit answer to Redux
   const saveResult = useCallback((data) => {
     dispatch({ type: "ADDRESULT", questionId: question.id, answerId: data.answerId });
   })
@@ -89,9 +93,9 @@ export default function Question(props) {
     </Layout>
   );
 }
+
+// Get All Question Path
 export const getStaticPaths = async () => {
-  // const res = await fetch(`${router.basePath}/api/question`);
-  // const questions = await res.json();
   const questions = QuestionData
 
   const pathList = questions.map((question, index) => ({ 
@@ -104,10 +108,8 @@ export const getStaticPaths = async () => {
   };
 };
 
+// Get Question's Data
 export async function getStaticProps({ params }) {
-  // const res = await fetch(`${router.basePath}/api/question`);
-  // const questions = await res.json();
-  // console.log('test')
   const question = QuestionData[params.index - 1]
 
   return {

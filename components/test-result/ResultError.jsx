@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import styles from '../../styles/Question.module.css'
 
+// Button Styled Component
 const StyledButton = styled(Button)`
   width: 10rem !important;
   height: 2.25rem;
@@ -29,11 +30,13 @@ export default function ResultError() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  // Handle Back to Main Page Button
   const backToMainPage = () => {
     dispatch({ type: 'STARTTEST'})
     router.push('/')
   }
 
+  // Handle Back to Question Button
   const backToQuestionPage = () => {
     dispatch({ type: 'STARTTEST'})
     router.push('/question/1')
@@ -45,7 +48,7 @@ export default function ResultError() {
       title="เกิดปัญหาอะไรบ้างอย่างกับผลสอบ"
       extra={
         <>
-          <p className="errorText mb-3">** อาจเกิดจากทำข้อสอบไม่ครบ **</p>
+          <p className="errorText mb-3">** อาจเกิดจากการทำข้อสอบไม่ครบ **</p>
 
           <div className={styles.buttonBox}>
             <StyledButton className="btn btn-danger" onClick={() => backToMainPage()}>

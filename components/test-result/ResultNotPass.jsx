@@ -3,6 +3,7 @@ import { Button, Result } from "antd";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
+// Button Styled Component
 const StyledButton = styled(Button)`
   width: 10rem !important;
   height: 2.25rem;
@@ -23,7 +24,8 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ErrorResult = styled(Result)`
+// Result Styled Component (Change title color)
+const NotPassResult = styled(Result)`
   .ant-result-title {
     color: #F00
   }
@@ -41,7 +43,7 @@ export default function ResultNotPass(props) {
   }
 
   return (
-    <ErrorResult
+    <NotPassResult
       status="error"
       title="เสียใจด้วยคุณสอบไม่ผ่าน"
       extra={

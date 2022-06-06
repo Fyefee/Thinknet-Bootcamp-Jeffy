@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import { createWrapper } from "next-redux-wrapper";
 import { PersistGate } from "redux-persist/integration/react";
+import Head from 'next/head'
 
 import store from "../redux/store/store";
 import { persistor } from "../redux/store/store";
@@ -13,6 +14,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <Head>
+          <title>Online Test Program</title>
+        </Head>
         <Component {...pageProps} />
       </PersistGate>
     </Provider>

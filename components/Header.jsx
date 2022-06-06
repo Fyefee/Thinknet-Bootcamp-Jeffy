@@ -3,6 +3,7 @@ import { Layout } from "antd";
 
 const { Header } = Layout;
 
+// Page Header Styled Component
 const StyledHeader = styled(Header)`
   background-color: salmon;
   padding: 1rem 2rem;

@@ -22,6 +22,7 @@ export default function Home() {
   // Clear User name on redux persist when entering page
   useEffect(
     () => {
+      // Check if state in Finish state it'll redirect to Result Page
       if (isFinished) {
         router.push("/result");
       } else {
@@ -34,7 +35,7 @@ export default function Home() {
 
   // Submit User name Form Function with useCallback(?)
   const addUserName = useCallback((name) => {
-    // Set Username to Redux persist
+    // Set Username to Redux persist and Set state to start test
     dispatch({ type: 'STARTTEST'})
     dispatch({ type: "ADDUSER", userName: name });
 

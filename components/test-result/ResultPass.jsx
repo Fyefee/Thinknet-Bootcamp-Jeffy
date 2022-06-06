@@ -3,6 +3,7 @@ import { Button, Result } from "antd";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
+// Button Styled Component
 const StyledButton = styled(Button)`
   width: 10rem !important;
   height: 2.25rem;
@@ -23,7 +24,8 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ErrorResult = styled(Result)`
+// Result Styled Component (Change title color)
+const PassResult = styled(Result)`
   .ant-result-title {
     color: #03c900
   }
@@ -35,13 +37,14 @@ export default function ResultPass(props) {
 
   const { userName, testScore, maxScore } = props;
 
+  // Handle Back to Main Page Button
   const backToMainPage = () => {
     dispatch({ type: 'STARTTEST'})
     router.push('/')
   }
 
   return (
-    <ErrorResult
+    <PassResult
       status="success"
       title="ยินดีด้วยคุณสอบผ่าน"
       extra={

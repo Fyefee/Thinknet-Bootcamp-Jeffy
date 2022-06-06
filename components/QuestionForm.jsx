@@ -6,6 +6,7 @@ import styles from "../styles/Question.module.css";
 
 import { useForm, Controller } from "react-hook-form";
 
+// Edit Name Button Styled Component
 const EditNameButton = styled(Button)`
   width: 10rem !important;
   height: 2.25rem;
@@ -26,6 +27,7 @@ const EditNameButton = styled(Button)`
   }
 `;
 
+// Question Navigation Button Styled Component
 const PageButton = styled(Button)`
   width: 4rem !important;
   height: 2.25rem;
@@ -57,6 +59,7 @@ const PageButton = styled(Button)`
   }
 `;
 
+// Radio Input Styled Component
 const StyledRadio = styled(Radio)`
   font-size: 1.1rem;
   word-break: break-word;
@@ -67,6 +70,7 @@ const StyledRadio = styled(Radio)`
   }
 `
 
+// Form Styled Component
 const StyledForm = styled('form')`
   width: 20rem;
 
@@ -76,6 +80,7 @@ const StyledForm = styled('form')`
   }
 `
 
+// Question Text Styled Component
 const Question = styled('p')`
   font-size: 1.2rem;
   word-wrap: break-word;
@@ -91,8 +96,9 @@ export default function QuestionForm(props) {
     reset,
   } = useForm();
   const onSubmit = (data, isNext) => {
-    reset({ answerId: '' })
+    // Reset Form and Check which Button clicked
     if (isNext) {
+      reset({ answerId: '' })
       goNext(data);
     } else {
       saveResult(data)
@@ -101,6 +107,7 @@ export default function QuestionForm(props) {
 
   const [answerId, setAnswerId] = useState('')
 
+  // Check if already answer question and set answer to form
   const setDefaultValue = () => {
     const resultMap = new Map(Object.entries(testResult));
     const oldAnswerId = resultMap.get(question.id)
@@ -114,6 +121,7 @@ export default function QuestionForm(props) {
     setDefaultValue()
   }, [question]);
 
+  // Reset Form before go back to past question
   const goBackHandler = () => {
     reset()
     goBack()
@@ -121,7 +129,11 @@ export default function QuestionForm(props) {
 
   return (
     <StyledForm>
+
+      {/* Question Text */}
       <Question>{`${questionCount}. ${question.name}`}</Question>
+
+      {/* Question's Radio Input */}
       <div className="vstack pt-2">
         <Controller
           name="answerId"
@@ -145,6 +157,7 @@ export default function QuestionForm(props) {
         </p>
       </div>
       
+      {/* Button Section */}
       <div className={styles.buttonBox}>
         <EditNameButton className="btn btn-danger" onClick={() => openModal()}>
           แก้ไขชื่อ

@@ -4,6 +4,7 @@ import { Input, Button } from "antd";
 
 import { useForm, Controller } from "react-hook-form";
 
+// Textfield Input Styled Component
 const StyledInput = styled(Input)`
   width: 20rem;
   height: 3rem;
@@ -14,6 +15,7 @@ const StyledInput = styled(Input)`
   }
 `;
 
+// Submit Form Button Styled Component
 const StyledButton = styled(Button)`
   width: 20rem;
   height: 2.5rem;
@@ -34,6 +36,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
+// Username Form Styled Component
 const StyledForm = styled('form')`
   @media (max-width: 575.98px) {
     width: 100%;
@@ -46,6 +49,7 @@ export default function NameForm(props) {
 
   const { submitForm, buttonText } = props
 
+  // Form Handler
   const {
     formState: { errors },
     handleSubmit,
@@ -57,6 +61,8 @@ export default function NameForm(props) {
 
   return (
     <StyledForm>
+
+      {/* Username Form Section */}
       <div className="vstack">
         <Controller
           name="userName"
@@ -78,7 +84,8 @@ export default function NameForm(props) {
           {errors.userName?.type === "required" && "โปรดระบุชื่อ"}
         </p>
       </div>
-
+      
+      {/* Submit Form Button */}
       <StyledButton onClick={handleSubmit(onSubmit)} className="btn btn-danger">
         {buttonText}
       </StyledButton>
