@@ -1,8 +1,8 @@
-const userStorage = typeof window !== 'undefined' ? localStorage.getItem('persist:user') : null
-const user = userStorage ? JSON.parse(userStorage) : null
+const questionStorage = typeof window !== 'undefined' ? localStorage.getItem('persist:question') : null
+const question = questionStorage ? JSON.parse(questionStorage) : null
 
 const initialState = {
-  result: {}
+  result: question?.result || {},
 }
 
 const questionReducer = (state = initialState, action) => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, Radio, Space } from "antd";
 
@@ -82,9 +82,7 @@ const Question = styled('p')`
 `
 
 export default function QuestionForm(props) {
-  const { question, questionCount, goNext, goBack, openModal } = props;
-
-  const [answerId, setAnswerId] = useState('')
+  const { question, questionCount, goNext, goBack, saveResult, openModal, testResult } = props;
 
   const {
     formState: { errors },
@@ -93,13 +91,33 @@ export default function QuestionForm(props) {
     reset,
   } = useForm();
   const onSubmit = (data, isNext) => {
+    reset({ answerId: '' })
     if (isNext) {
       goNext(data);
     } else {
-      goBack(data)
+      saveResult(data)
     }
-    reset()
   };
+
+  const [answerId, setAnswerId] = useState('')
+
+  const setDefaultValue = () => {
+    const resultMap = new Map(Object.entries(testResult));
+    const oldAnswerId = resultMap.get(question.id)
+    if (oldAnswerId) {
+      setAnswerId(oldAnswerId)
+      reset({ answerId: oldAnswerId })
+    }
+  }
+
+  useEffect(() => {
+    setDefaultValue()
+  }, [question]);
+
+  const goBackHandler = () => {
+    reset()
+    goBack()
+  }
 
   return (
     <StyledForm>
@@ -135,9 +153,15 @@ export default function QuestionForm(props) {
         <div className="hstack w-auto">
           <PageButton 
             className="btn btn-danger" 
-            onClick={handleSubmit((data) => onSubmit(data, false))}
+            onClick={() => goBackHandler()}
           >
             {'<'}
+          </PageButton>
+          <PageButton 
+            className="btn btn-danger" 
+            onClick={handleSubmit((data) => onSubmit(data, false))}
+          >
+            {'Save'}
           </PageButton>
           <PageButton 
             className="btn btn-danger" 

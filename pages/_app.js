@@ -5,8 +5,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import store from "../redux/store/store";
 import { persistor } from "../redux/store/store";
 
-import RouteGuard from "../route/RouteGuard";
-
 import "../styles/globals.css";
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,9 +13,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <RouteGuard>
-          <Component {...pageProps} />
-        </RouteGuard>
+        <Component {...pageProps} />
       </PersistGate>
     </Provider>
   );

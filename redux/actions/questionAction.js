@@ -1,1 +1,1 @@
-export const getResult = (state) => state.result
+export const getResult = (state) => state.question.result

@@ -2,3 +2,10 @@
    display: flex;
    justify-content: space-between;
 }
+
+@media screen and (max-width: 575.98px){
+    .buttonBox {
+        display: block;
+        justify-content: center;
+    }
+}
