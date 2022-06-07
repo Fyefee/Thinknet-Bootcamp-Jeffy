@@ -1,0 +1,19 @@
+const Student = require('./schemas/student')
+
+const create = (data, options) => Student.create(data, options)
+
+const find = (query = {}, fields = {}, options = {}) => Student.find(query, fields, options).lean()
+
+const findOne = (query = {}, fields = {}, options = {}) => Student.findOne(query, fields, options).lean()
+
+const findOneAndUpdate = (query = {}, fields = {}) => Student.findOneAndUpdate(query, fields, { upsert: true, new: true }).exec()
+
+const deleteOne = (query = {}) => Student.deleteOne(query)
+
+export {
+  create,
+  find,
+  findOne,
+  findOneAndUpdate,
+  deleteOne,
+}
