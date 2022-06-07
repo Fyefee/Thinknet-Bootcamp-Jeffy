@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Layout, Input, Button } from "antd";
+import { Layout, Progress } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from 'next/router'
 
@@ -23,7 +23,7 @@ export default function Question(props) {
 
   const router = useRouter();
 
-  const { question, questionLangth, pageIndex } = props;
+  const { question, questionLangth, pageIndex, questionProgress } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const openModal = () => setIsModalOpen(true)
@@ -74,6 +74,7 @@ export default function Question(props) {
   return (
     <Layout className="layout-background">
       <Header userName={userName} />
+      <Progress percent={questionProgress} showInfo={false} strokeColor='salmon' />
       <Content className="container justify-content-center align-items-center d-flex pt-5">
         <QuestionForm
           question={question}
@@ -117,6 +118,7 @@ export async function getStaticProps({ params }) {
       question,
       questionLangth: QuestionData.length,
       pageIndex: parseInt(params.index),
+      questionProgress: parseInt(params.index) / QuestionData.length * 100,
     },
   };
 }
