@@ -1,2 +1,8 @@
 # Thinknet Bootcamp Assignment
-### Select branch for view assignment
+### ExpressJS Assignment
+<br>
+How to run on development
+
+```
+yarn start
+```
