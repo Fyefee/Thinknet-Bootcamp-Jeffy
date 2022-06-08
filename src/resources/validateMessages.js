@@ -1,0 +1,6 @@
+module.exports.notEmpty = 'is required.'
+module.exports.invalid = 'is invalid.'
+module.exports.isInt = 'must be only integer.'
+module.exports.isFloat = 'must be float.'
+module.exports.isString = 'must be string.'
+module.exports.isDate = 'must be date.'

@@ -50,10 +50,27 @@ const deleteStudentById = async (req, res) => {
   }
 }
 
+const getGpaxById = async (req, res) => {
+  const { id } = req.params
+  try {
+    const student = await studentModel.findOne({ id })
+    const gpaLength = student?.gpa?.length
+    let gpaSum = 0
+    for (let i = 0; i < gpaLength; i++) {
+      gpaSum += student?.gpa[i].gpa
+    }
+    const gpax = gpaSum / gpaLength
+    res.status(200).send(`Student's ID ${id} have GPAX: ${gpax}`)
+  } catch (e) {
+    res.status(400).send('Something Wrong')
+  }
+}
+
 export {
   createStudent,
   getAllStudents,
   getStudentById,
   updateStudentById,
   deleteStudentById,
+  getGpaxById,
 }
