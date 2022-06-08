@@ -278,7 +278,8 @@ function Question(props) {
   const {
     question,
     questionLangth,
-    pageIndex
+    pageIndex,
+    questionProgress
   } = props;
   const {
     0: isModalOpen,
@@ -341,6 +342,10 @@ function Question(props) {
     className: "layout-background",
     children: [/*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_Header__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
       userName: userName
+    }), /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(antd__WEBPACK_IMPORTED_MODULE_1__.Progress, {
+      percent: questionProgress,
+      showInfo: false,
+      strokeColor: "salmon"
     }), /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(Content, {
       className: "container justify-content-center align-items-center d-flex pt-5",
       children: /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_QuestionForm__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
@@ -381,7 +386,8 @@ async function getStaticProps({
     props: {
       question,
       questionLangth: _shared_json_question_json__WEBPACK_IMPORTED_MODULE_4__.length,
-      pageIndex: parseInt(params.index)
+      pageIndex: parseInt(params.index),
+      questionProgress: parseInt(params.index) / _shared_json_question_json__WEBPACK_IMPORTED_MODULE_4__.length * 100
     }
   };
 }
