@@ -21,7 +21,6 @@ p {
 }
 
 .layout-background {
-  @apply layout;
   background-color: #fff !important;
 }
 
@@ -30,4 +29,26 @@ p {
   padding-left: 0.25rem;
   padding-top: 0.25rem;
   font-size: 0.8rem;
+}
+
+.ant-btn-primary {
+  background-color: salmon !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: rgb(212, 108, 96) !important;
+  border-color: rgb(212, 108, 96) !important;
+}
+
+.ant-btn-primary:focus {
+  background-color: rgb(212, 108, 96) !important;
+  border-color: rgb(212, 108, 96) !important;
+}
+
+.ant-input:hover {
+  border-color: rgb(212, 108, 96) !important;
+}
+
+.ant-input:focus {
+  border-color: rgb(212, 108, 96) !important;
 }

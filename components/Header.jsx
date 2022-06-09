@@ -11,6 +11,7 @@ const StyledHeader = styled(Header)`
   justify-content: space-between;
   align-items: center;
   color: #fff;
+  font-size: 0.95rem;
 `
 
 export default function AppHeader(props) {

@@ -48,7 +48,7 @@ export default function Home() {
 
       <Header userName={userName} />
       
-      <Content className="container justify-content-center align-items-center d-flex pt-5">
+      <Content>
 
         <NameForm
           submitForm={(name) => addUserName(name)}
