@@ -1,5 +1,5 @@
 # Thinknet Bootcamp Assignment
-### ExpressJS Assignment
+### Redis Example
 <br>
 How to run on development
 
