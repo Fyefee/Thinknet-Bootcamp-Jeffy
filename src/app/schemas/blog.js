@@ -30,7 +30,7 @@ const typeDefs = `
     estimatedReadTime: Int
   }
 
-  type Book implements Media {
+  type Books implements Media {
     _id: ID!
     title: String!
     category: Categories
@@ -64,7 +64,7 @@ const typeDefs = `
     description: String
   }
 
-  type ResponseUpdatingPayload {
+  type ResponsesUpdatingPayload {
     httpCode: String
     message: String
   }
@@ -93,8 +93,8 @@ const queries = `
 
 const mutations = `
   createBlog(input: CreateBlogInput!): BlogPayload
-  updateBlog(_id: ID!, input: CreateBlogInput!): ResponseUpdatingPayload
-  deleteBlog(_id: ID!): ResponseUpdatingPayload
+  updateBlog(_id: ID!, input: CreateBlogInput!): ResponsesUpdatingPayload
+  deleteBlog(_id: ID!): ResponsesUpdatingPayload
 `
 
 const resolvers = {

@@ -6,7 +6,7 @@ const dateScalar = new GraphQLScalarType({
     return new Date(value);
   },
   serialize(value) {
-    return value.toISOString();
+    return new Date(value).getTime();
   },
 })
 
