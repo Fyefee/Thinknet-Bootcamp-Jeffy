@@ -18,6 +18,8 @@ mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true }).then(
   }
 );
 
+const redis = require('./app/connection/redis')
+
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: true }))
 

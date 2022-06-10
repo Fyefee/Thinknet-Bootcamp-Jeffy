@@ -13,7 +13,10 @@ const createStudent = async (req, res) => {
 const getAllStudents = async (req, res) => {
   try {
     const students = await studentModel.find()
-    res.status(200).json(students)
+    setTimeout(() => {
+      res.status(200).json(students)
+    }, 2000)
+    // res.status(200).json(students)
   } catch (e) {
     res.status(400).send('Something Wrong')
   }
