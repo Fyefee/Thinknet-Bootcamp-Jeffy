@@ -65,19 +65,108 @@ const getAllProducts = () => {
 
 const createProduct = (productInput) => {
   const response = { _id: uuidv4(), ...productInput }
+
+  if (!response.tisiCertificate && !response.fdaCertificate && !response.isbnNumber) {
+    return {
+      status: '400',
+      message: `Please enter product's certificate/number`,
+      data: null,
+    }
+  }
+
   products.push(response)
-  return { data: response }
+  return {
+    status: '201',
+    message: `Create Product Complete.`,
+    data: response
+  }
 }
 
 const updateProduct = (id, productInput) => {
   const oldProductData = products.find((product) => {
     return product._id === id
   })
+
+  if (!oldProductData) {
+    return {
+      status: '400',
+      message: `Product not found...`,
+    }
+  }
+
   Object.assign(oldProductData, { ...productInput })
   return {
-    status: '201',
+    status: '200',
     message: `Product ID: ${id} has been updated.`,
     data: oldProductData
+  }
+}
+
+const deleteProduct = (id) => {
+  const productToDelete = products.find((product) => {
+    return product._id === id
+  })
+
+  if (!productToDelete) {
+    return {
+      status: '400',
+      message: `Product not found...`,
+    }
+  }
+
+  const index = products.indexOf(productToDelete)
+  if (productToDelete) {
+    products.splice(index, 1)
+  }
+  return { 
+    httpCode: '200',
+    message: `Product ID: ${id} has been deleted.`
+  }
+}
+
+const buyProduct = (id, amount) => {
+  const productToUpdate = products.find((product) => {
+    return product._id === id
+  })
+
+  if (!productToUpdate) {
+    return {
+      status: '400',
+      message: `Product not found...`,
+      sameCategoryProduct: null,
+    }
+  }
+
+  if (productToUpdate?.quantity < amount) {
+    return {
+      status: '400',
+      message: `Not Enough ${productToUpdate?.productName} in stock`,
+      sameCategoryProduct: null,
+    }
+  }
+  
+  const editedData = {
+    quantity: productToUpdate?.quantity - amount
+  }
+  Object.assign(productToUpdate, { ...editedData })
+
+  const sameCategoryData = []
+  products.forEach((product) => {
+    if (productToUpdate?.tisiCertificate && product.tisiCertificate) {
+      sameCategoryData.push(product)
+    }
+    if (productToUpdate?.fdaCertificate && product.fdaCertificate) {
+      sameCategoryData.push(product)
+    }
+    if (productToUpdate?.isbnNumber && product.isbnNumber) {
+      sameCategoryData.push(product)
+    }
+  })
+
+  return {
+    status: '200',
+    message: `Buy ${amount} ${productToUpdate?.productName} Complete. Have ${productToUpdate?.quantity} left in stock.`,
+    sameCategoryProduct: sameCategoryData
   }
 }
 
@@ -104,4 +193,6 @@ export default {
   getSportCategoryByENUM,
   createProduct,
   updateProduct,
+  deleteProduct,
+  buyProduct,
 }

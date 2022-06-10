@@ -27,8 +27,28 @@ const updateProduct = async (id, productInput) => {
   }
 }
 
+const deleteProduct = async (id) => {
+  try {
+    const response = await productService.deleteProduct(id)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const buyProduct = async (id, amount) => {
+  try {
+    const response = await productService.buyProduct(id, amount)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default {
   getAllProducts,
   createProduct,
-  updateProduct
+  updateProduct,
+  deleteProduct,
+  buyProduct
 }

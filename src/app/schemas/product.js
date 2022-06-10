@@ -63,9 +63,20 @@ const typeDefs = `
   }
 
   type ProductResponseUpdatingPayload {
-    status: String
+    status: String!
     message: String
     data: Product
+  }
+
+  type ProductResponseDeletingPayload {
+    status: String!
+    message: String
+  }
+
+  type BuyProductResponsePayload {
+    status: String!
+    message: String
+    sameCategoryProduct: [Product]
   }
 
   input CreateProductInput {
@@ -93,8 +104,10 @@ const queries = `
 `
 
 const mutations = `
-  createProduct(input: CreateProductInput!): ProductPayload
+  createProduct(input: CreateProductInput!): ProductResponseUpdatingPayload
   updateProduct(_id: ID!, input: CreateProductInput!): ProductResponseUpdatingPayload
+  deleteProduct(_id: ID!): ProductResponseDeletingPayload
+  buyProduct(_id: ID!, amount: Int!): BuyProductResponsePayload
 `
 
 const resolvers = {
@@ -104,6 +117,8 @@ const resolvers = {
   Mutation: {
     createProduct: (_, args) => productController.createProduct(args.input),
     updateProduct: (_, args) => productController.updateProduct(args._id, args.input),
+    deleteProduct: (_, args) => productController.deleteProduct(args._id),
+    buyProduct: (_, args) => productController.buyProduct(args._id, args.amount)
   },
   Book: {
     categoryValue: async (data) => {
