@@ -68,7 +68,7 @@ const createProduct = (productInput) => {
 
   if (!response.tisiCertificate && !response.fdaCertificate && !response.isbnNumber) {
     return {
-      status: '400',
+      status: '422',
       message: `Please enter product's certificate/number`,
       data: null,
     }
@@ -119,7 +119,7 @@ const deleteProduct = (id) => {
     products.splice(index, 1)
   }
   return { 
-    httpCode: '200',
+    httpCode: '204',
     message: `Product ID: ${id} has been deleted.`
   }
 }
@@ -139,7 +139,7 @@ const buyProduct = (id, amount) => {
 
   if (productToUpdate?.quantity < amount) {
     return {
-      status: '400',
+      status: '422',
       message: `Not Enough ${productToUpdate?.productName} in stock`,
       sameCategoryProduct: null,
     }
