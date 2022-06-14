@@ -1,4 +1,4 @@
-/* eslint no-console: ["error", { allow: ["log", "error"] }] */
+/* eslint no-console: ["error", { allow: ["log"] }] */
 const index = () => {
   console.log('Hello world')
 }
