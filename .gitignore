@@ -1,0 +1,9 @@
+node_modules
+yarn-error.log
+databases/data
+coverage
+.next
+
+.env
+.env.express
+.env.graphql
