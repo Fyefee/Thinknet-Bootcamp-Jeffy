@@ -9,11 +9,18 @@ jest.mock('mongoose', () => ({
   model: jest.fn(() => ({
     findOne: jest.fn(function findOne() { return this }),
     create: jest.fn(function create() { return this }),
+    findOneAndUpdate: jest.fn(function create() { return this }),
+    deleteMany: jest.fn(function create() { return this }),
     lean: jest.fn(),
   })),
 }))
 
 describe('Unit test for User Models', () => {
+  afterEach(() => {
+    const mongooseModelResultDetail = mongoose.model.mock.results[0].value
+    mongooseModelResultDetail.lean.mockRestore()
+  })
+
   describe('(Models) create user schema', () => {
     it('should set user schema correctly', () => {
       expect(mongoose.Promise).toBe(global.Promise)
@@ -55,6 +62,61 @@ describe('Unit test for User Models', () => {
 
       expect(mongooseModelResultDetail.findOne).toHaveBeenCalledTimes(1)
       expect(mongooseModelResultDetail.findOne).toHaveBeenCalledWith(mockQuery)
+      expect(mongooseModelResultDetail.lean).toHaveBeenCalledTimes(1)
+      expect(result).toBe(mockLeanData)
+    })
+  })
+
+  describe('(Models) create user function', () => {
+    it('should create function call create correctly', () => {
+      const mongooseModelResultDetail = mongoose.model.mock.results[0].value
+      const mockData = 'Mockup Data'
+      const mockReturnData = 'Mockup Return Data'
+
+      mongooseModelResultDetail.create.mockReturnValueOnce(mockReturnData)
+
+      const result = userModel.create(mockData)
+
+      expect(mongooseModelResultDetail.create).toHaveBeenCalledTimes(1)
+      expect(mongooseModelResultDetail.create).toHaveBeenCalledWith(mockData)
+      expect(result).toBe(mockReturnData)
+    })
+  })
+
+  describe('(Models) findOneAndUpdate user function', () => {
+    it('should findOneAndUpdate function call findOneAndUpdate and lean correctly', () => {
+      const mongooseModelResultDetail = mongoose.model.mock.results[0].value
+      const mockQuery = 'Mockup Query'
+      const mockChanges = 'Mockup Changes'
+      const mockLeanData = 'Mockup Lean Data'
+
+      mongooseModelResultDetail.lean.mockReturnValueOnce(mockLeanData)
+
+      const result = userModel.findOneAndUpdate(mockQuery, mockChanges)
+
+      expect(mongooseModelResultDetail.findOneAndUpdate).toHaveBeenCalledTimes(1)
+      expect(mongooseModelResultDetail.findOneAndUpdate).toHaveBeenCalledWith(
+        mockQuery,
+        mockChanges,
+        { new: true },
+      )
+      expect(mongooseModelResultDetail.lean).toHaveBeenCalledTimes(1)
+      expect(result).toBe(mockLeanData)
+    })
+  })
+
+  describe('(Models) remove user function', () => {
+    it('should remove function call deleteMany and lean correctly', () => {
+      const mongooseModelResultDetail = mongoose.model.mock.results[0].value
+      const mockQuery = 'Mockup Query'
+      const mockLeanData = 'Mockup Lean Data'
+
+      mongooseModelResultDetail.lean.mockReturnValueOnce(mockLeanData)
+
+      const result = userModel.remove(mockQuery)
+
+      expect(mongooseModelResultDetail.deleteMany).toHaveBeenCalledTimes(1)
+      expect(mongooseModelResultDetail.deleteMany).toHaveBeenCalledWith(mockQuery)
       expect(mongooseModelResultDetail.lean).toHaveBeenCalledTimes(1)
       expect(result).toBe(mockLeanData)
     })
