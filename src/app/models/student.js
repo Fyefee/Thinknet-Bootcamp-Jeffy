@@ -6,7 +6,7 @@ const find = (query = {}, fields = {}, options = {}) => Student.find(query, fiel
 
 const findOne = (query = {}, fields = {}, options = {}) => Student.findOne(query, fields, options).lean()
 
-const findOneAndUpdate = (query = {}, fields = {}) => Student.findOneAndUpdate(query, fields, { upsert: true, new: true }).exec()
+const findOneAndUpdate = (query = {}, fields = {}, options = {}) => Student.findOneAndUpdate(query, fields, options).exec()
 
 const deleteOne = (query = {}) => Student.deleteOne(query)
 
