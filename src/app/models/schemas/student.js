@@ -28,4 +28,6 @@ const StudentSchema = new mongoose.Schema(
   },
 );
 
+StudentSchema.index({ id: 1 })
+
 module.exports = mongoose.model("student", StudentSchema);
