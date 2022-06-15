@@ -1,18 +1,22 @@
-const studentModel = require('../models/student')
+import studentService from '../services/student'
 
 const createStudent = async (req, res) => {
   const payload = req.body
   try {
-    const student = await studentModel.create(payload)
+    const student = await studentService.createStudent(payload)
+    if (!student) {
+      res.status(400).send('Create Fail (Maybe Student ID Duplicate)')
+      return
+    }
     res.status(201).json(student)
   } catch (e) {
-    res.status(400).send('Something Wrong (Maybe Student ID Duplicate)')
+    res.status(400).send('Something Wrong')
   }
 }
 
 const getAllStudents = async (req, res) => {
   try {
-    const students = await studentModel.find()
+    const students = await studentService.getAllStudents()
     if (students.length === 0) {
       res.status(200).send('Not have any student in database')
       return
@@ -26,7 +30,7 @@ const getAllStudents = async (req, res) => {
 const getStudentById = async (req, res) => {
   const { id } = req.params
   try {
-    const student = await studentModel.findOne({ id })
+    const student = await studentService.getStudentById(id)
     if (!student) {
       res.status(400).send(`Not have student ID: ${id} in database`)
       return
@@ -41,7 +45,7 @@ const updateStudentById = async (req, res) => {
   const { id } = req.params
   const payload = req.body
   try {
-    const student = await studentModel.findOneAndUpdate({ id }, payload)
+    const student = await studentService.updateStudentById(id, payload)
     if (!student) {
       res.status(400).send(`Not have student ID: ${id} in database`)
       return
@@ -55,7 +59,7 @@ const updateStudentById = async (req, res) => {
 const deleteStudentById = async (req, res) => {
   const { id } = req.params
   try {
-    const student = await studentModel.deleteOne({ id })
+    const student = await studentService.deleteStudentById(id)
     if (student.deletedCount === 0){
       res.status(400).send(`Not have student ID: ${id} in database`)
       return
@@ -69,18 +73,13 @@ const deleteStudentById = async (req, res) => {
 const getGpaxById = async (req, res) => {
   const { id } = req.params
   try {
-    const student = await studentModel.findOne({ id })
-    if (!student) {
+    const gpax = await studentService.getGpaxById(id)
+    if (!gpax) {
       res.status(400).send(`Not have student ID: ${id} in database`)
       return
+    } else {
+      res.status(200).send(gpax)
     }
-    const gpaLength = student?.gpa?.length
-    let gpaSum = 0
-    for (let i = 0; i < gpaLength; i++) {
-      gpaSum += student?.gpa[i].gpa
-    }
-    const gpax = gpaSum / gpaLength
-    res.status(200).send(`Student's ID ${id} have GPAX: ${gpax}`)
   } catch (e) {
     res.status(400).send('Something Wrong')
   }

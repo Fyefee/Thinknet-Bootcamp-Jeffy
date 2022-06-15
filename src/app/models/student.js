@@ -10,7 +10,7 @@ const findOneAndUpdate = (query = {}, fields = {}, options = {}) => Student.find
 
 const deleteOne = (query = {}) => Student.deleteOne(query)
 
-export {
+export default {
   create,
   find,
   findOne,
