@@ -1,0 +1,13 @@
+{
+  "form": {
+    "EMAIL_INPUT": "#signin-form-email-input",
+    "EMAIL_ERROR_REQUIRED": "#signin-form-email-error-requiredlabel",
+    "EMAIL_ERROR_INVALID": "#signin-form-email-error-notvalidlabel",
+    "PASSWORD_INPUT": "#signin-form-password-input",
+    "PASSWORD_ERROR_REQUIRED": "#signin-form-password-error-requiredlabel",
+    "LOGIN_BUTTON": "#signin-form-submit-button"
+  },
+  "REGISTER_BUTTON": "#signin-singup-button",
+  "MODAL_ERROR_TEXT": ".ant-modal-confirm-title"
+}
+  

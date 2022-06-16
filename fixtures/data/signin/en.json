@@ -1,0 +1,30 @@
+{
+  "EMAIL_ERROR_REQUIRED_LABEL": "Please input your email!",
+  "EMAIL_ERROR_INVALID_LABEL": "The input is not valid E-mail!",
+  "PASSWORD_ERROR_REQUIRED_LABEL": "Please input your password!",
+  "MODAL_ERROR_LABEL": "Invalid email and password combination",
+  "usersSuccess": [{
+    "email": "testuser+1@gmail.com",
+    "password": "password",
+    "nickname": "Somchai Thinknet",
+    "avatar": "images/profile/avatar-A.png"
+  }, {
+    "email": "testuser+2@gmail.com",
+    "password": "password!@@#",
+    "nickname": "Somchai @@! Thinknet",
+    "avatar": "images/profile/avatar-B.png"
+  }],
+  "usersFail": [{
+    "email": "testuser+1@gmail.com",
+    "password": "password",
+    "passwordSignin": "password-",
+    "nickname": "Somchai Thinknet",
+    "avatar": "images/profile/avatar-A.png"
+  }, {
+    "email": "testuser+2@gmail.com",
+    "password": "password!@@#",
+    "passwordSignin": "password!@@#+",
+    "nickname": "Somchai @@! Thinknet",
+    "avatar": "images/profile/avatar-B.png"
+  }]
+}
