@@ -1,0 +1,8 @@
+.next
+coverage
+databases
+node_modules
+
+.env
+.env.express
+.env.graphql
